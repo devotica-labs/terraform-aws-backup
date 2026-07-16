@@ -22,7 +22,7 @@ variable "vault_lock" {
   default     = null
 
   validation {
-    condition     = var.vault_lock == null || (var.vault_lock.min_retention_days >= 1 && var.vault_lock.max_retention_days >= var.vault_lock.min_retention_days)
+    condition     = var.vault_lock == null || try(var.vault_lock.min_retention_days >= 1 && var.vault_lock.max_retention_days >= var.vault_lock.min_retention_days, false)
     error_message = "vault_lock.min_retention_days must be >= 1 and <= max_retention_days."
   }
 }
