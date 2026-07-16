@@ -1,0 +1,52 @@
+#
+# Canonical configuration for README.md (cloudposse-style doc standard,
+# native to Devotica). Run `make readme` to regenerate the terraform-docs
+# section of README.md.
+#
+
+name: terraform-aws-backup
+license: APACHE2
+github_repo: devotica-labs/terraform-aws-backup
+
+badges:
+  - name: CI
+    image: https://github.com/devotica-labs/terraform-aws-backup/actions/workflows/ci.yml/badge.svg
+    url: https://github.com/devotica-labs/terraform-aws-backup/actions/workflows/ci.yml
+  - name: Release
+    image: https://github.com/devotica-labs/terraform-aws-backup/actions/workflows/release.yml/badge.svg
+    url: https://github.com/devotica-labs/terraform-aws-backup/actions/workflows/release.yml
+  - name: License
+    image: https://img.shields.io/badge/License-Apache_2.0-blue.svg
+    url: LICENSE
+
+related:
+  - name: terraform-aws-rds
+    description: Database whose ARN you feed into selection_resource_arns for backup.
+    url: https://github.com/devotica-labs/terraform-aws-rds
+  - name: terraform-aws-kms
+    description: Customer-managed key — pass its ARN as kms_key_arn for the vault.
+    url: https://github.com/devotica-labs/terraform-aws-kms
+
+description: |-
+  Terraform module for **AWS Backup** — a KMS-encrypted backup vault, a plan
+  with one or more scheduled rules, a resource/tag selection, and a dedicated
+  service role. Ships a fintech baseline: encrypted vault, a daily rule with
+  35-day retention, optional cold storage, and an optional compliance vault
+  lock (WORM).
+
+introduction: |-
+  This module creates an [AWS Backup](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html)
+  vault (`aws_backup_vault`), a plan (`aws_backup_plan`) with dynamic scheduled
+  rules, a selection (`aws_backup_selection`) driven by explicit resource ARNs
+  and/or tags, and — unless an existing `backup_role_arn` is supplied — a
+  dedicated IAM service role trusting `backup.amazonaws.com` with the AWS-managed
+  backup and restore policies. An optional `aws_backup_vault_lock_configuration`
+  enables compliance-mode WORM retention.
+
+usage: |-
+  See [`examples/complete`](examples/complete) for the full surface (tiered
+  rules, cold storage, a customer-managed key, and a vault lock) and
+  [`examples/basic`](examples/basic) for a tag-selected daily backup with a
+  35-day retention.
+
+contributors: []
